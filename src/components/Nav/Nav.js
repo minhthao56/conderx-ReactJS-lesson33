@@ -1,10 +1,14 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 export default function Nav() {
+  const DataUser = useSelector((state) => state.DataUser);
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav
+      className="navbar navbar-expand-lg navbar-light bg-light"
+      style={{ display: "flex" }}
+    >
       <Link className="navbar-brand" href="/">
         Book Share
       </Link>
@@ -21,22 +25,36 @@ export default function Nav() {
       </button>
 
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul className="navbar-nav mr-auto">
+        <ul className="navbar-nav ml-auto">
           <li className="nav-item active">
             <Link className="nav-link" to="/">
               Home <span className="sr-only">(current)</span>
             </Link>
           </li>
-          <li className="nav-item active">
-            <Link className="nav-link" to="/user/login">
-              Login <span className="sr-only">(current)</span>
-            </Link>
-          </li>
-          <li className="nav-item active">
-            <Link className="nav-link" to="/user/signup">
-              Sign Up <span className="sr-only">(current)</span>
-            </Link>
-          </li>
+
+          {DataUser.name ? (
+            <span
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              {DataUser.name}
+            </span>
+          ) : (
+            <div style={{ display: "flex", marginLeft: "auto" }}>
+              <li className="nav-item active">
+                <Link className="nav-link" to="/user/login">
+                  Login
+                </Link>
+              </li>
+              <li className="nav-item active">
+                <Link className="nav-link" to="/user/signup">
+                  Sign Up
+                </Link>
+              </li>
+            </div>
+          )}
         </ul>
       </div>
     </nav>

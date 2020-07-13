@@ -1,15 +1,16 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import postBooksAIP from "../../../api/postBookAIP";
 
 export default function ModalFromPost(props) {
   const { handleLosePost } = props;
   const { register, handleSubmit } = useForm();
-  const DataUser = useSelector((state) => state.DataUser);
 
   const onSubmit = (data, e) => {
-    console.log(DataUser._id);
-    console.log(data);
+    postBooksAIP.bookPost(data).then((res) => {
+      e.target.reset();
+      return handleLosePost();
+    });
   };
 
   return (
