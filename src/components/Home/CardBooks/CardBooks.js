@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 export default function CardBooks(props) {
   const {
@@ -9,6 +10,8 @@ export default function CardBooks(props) {
     createdAt,
     thumbnailUrl,
   } = props;
+  const time = new Date(createdAt);
+  const timeFromNow = moment(time).fromNow();
   return (
     <div className="card" style={{ width: "250px" }}>
       <img
@@ -22,9 +25,13 @@ export default function CardBooks(props) {
         <p style={{ height: 100, overflow: "hidden" }} className="card-text">
           {shortDescription}
         </p>
-        <a href="/" className="btn btn-primary">
+        <p>
+          {category} - {author}
+        </p>
+        <button href="/" className="btn btn-primary">
           Request
-        </a>
+        </button>
+        <p>{timeFromNow}</p>
       </div>
     </div>
   );
